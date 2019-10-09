@@ -40,8 +40,10 @@ public class SimpleJDBC {
 
       /**
        * print result set to console
+       * result set have also method getType and you can specify which column you want to get
        */
       while (rs.next()) {
+
         int numColumns = rs.getMetaData().getColumnCount();
         for (int i = 1; i <= numColumns; i++) {
           System.out.println("COLUMN " + i + " = " + rs.getObject(i));

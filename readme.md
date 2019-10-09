@@ -26,4 +26,15 @@ then select new postgres data source
 
 ### JDBC
 
+### JDBI
+
+
+### LINKS
+
+https://www.jooq.org/
+
+http://jdbi.org/
+
+https://github.com/ZawadzkiB/jdbi_examples
+
 
