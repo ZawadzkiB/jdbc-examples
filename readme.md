@@ -4,7 +4,8 @@ SQL tutorial -> https://sqlbolt.com/lesson/select_queries_introduction
 
 ##### What is SQL ?
 ##### What is DML, DDL, DCL, DQL ?
-##### What is database migrations ?
+##### What is JDBC ?
+##### What is JDBI ?
 
 ---
 
@@ -19,15 +20,6 @@ then select new postgres data source
 ![alt text](img/Screenshot at Oct 06 17-22-30.png)
 
 ---
-
-### CONNECTIONS
-
-
-
-### JDBC
-
-### JDBI
-
 
 ### LINKS
 
