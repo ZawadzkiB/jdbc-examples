@@ -18,6 +18,11 @@ public class LessSimpleJDBC {
 
     BigDecimal minimalPrice = BigDecimal.valueOf(200L);
 
+    List<Product> products = new ArrayList<>();
+    while(rs.next()){
+      products.add(new Product().id==rs.getCol("id"))
+
+    }
 
   }
 

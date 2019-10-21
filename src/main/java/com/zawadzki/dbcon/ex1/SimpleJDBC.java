@@ -28,15 +28,15 @@ public class SimpleJDBC {
        * create connection
        */
       conn = DriverManager.getConnection(
-              "url",
-              "user",
-              "password");
+              "jdbc:postgresql://localhost:5432/example1",
+              "example1",
+              "example1");
 
       /**
        * create statement and run SQL query
        */
       stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery("");
+      ResultSet rs = stmt.executeQuery("select * from products");
 
       /**
        * print result set to console
@@ -44,10 +44,13 @@ public class SimpleJDBC {
        */
       while (rs.next()) {
 
-        int numColumns = rs.getMetaData().getColumnCount();
-        for (int i = 1; i <= numColumns; i++) {
-          System.out.println("COLUMN " + i + " = " + rs.getObject(i));
-        }
+//        int numColumns = rs.getMetaData().getColumnCount();
+//        for (int i = 1; i <= numColumns; i++) {
+//          System.out.println("COLUMN " + i + " = " + rs.getObject(i));
+//        }
+
+        System.out.println("Name: " + rs.getString("name"));
+
       }
 
       /**
