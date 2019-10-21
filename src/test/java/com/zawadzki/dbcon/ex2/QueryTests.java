@@ -58,7 +58,13 @@ class QueryTests {
    */
   @Test
   void selectNamesWherePriceIsHigherThan200() {
+    List<String> products = jdbi.withHandle(handle ->
+            handle.createQuery("select name from products where price > :price")
+                    .bind("price", 200)
+                    .mapTo(String.class)
+                    .list());
 
+    assertThat(products.size()).isEqualTo(3);
   }
 
   /**
@@ -68,6 +74,13 @@ class QueryTests {
    */
   @Test
   void selectNamesWherePriceIsHigherThan200AndCategoryIsElectronics() {
+    List<String> products = jdbi.withHandle(handle ->
+            handle.createQuery("select name from products where price > :price and category = :category")
+                    .bind("price", 200)
+                    .bind("category", "electronics")
+                    .mapTo(String.class)
+                    .list());
 
+    assertThat(products).contains("laptop", "computer");
   }
 }
