@@ -29,6 +29,8 @@ public interface ProductsDao {
   Boolean insertProduct(@BindBean Product product);
 
   @SqlUpdate("update products set name=:name, category=:category, price=:price where id=:id")
-  Boolean updateproduct(@BindBean Product product);
+  Boolean updateProduct(@BindBean Product product);
 
+  @SqlUpdate("delete from products where id = :id")
+  Boolean deleteProduct(@Bind("id") Integer id);
 }

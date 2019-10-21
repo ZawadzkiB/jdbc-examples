@@ -35,7 +35,6 @@ public class CrudToDoTests {
             "example1",
             "example1");
     jdbi.installPlugin(new SqlObjectPlugin());
-
   }
 
   @Test
@@ -46,7 +45,8 @@ public class CrudToDoTests {
 
   @Test
   void getAllById() {
-    Product product = jdbi.withExtension(ProductsDao.class, it -> it.getById(1))
+    Product product = jdbi.withExtension(ProductsDao.class,
+            it -> it.getById(1))
             .orElse(new Product());
 
     assertThat(product.getId()).isNotNull();
@@ -73,7 +73,7 @@ public class CrudToDoTests {
   @Test
   void updateProduct(){
     Boolean updated = jdbi.withExtension(ProductsDao.class, it ->
-            it.updateproduct(
+            it.updateProduct(
                     new Product()
                     .setName("update1")
                     .setCategory("u1")
@@ -96,4 +96,24 @@ public class CrudToDoTests {
 
     assertThat(inserted).isTrue();
   }
+
+  @Test
+  void deleteProduct() {
+    jdbi.withExtension(ProductsDao.class, it -> it.insertProduct(
+            new Product()
+                    .setName("todelete1")
+                    .setCategory("u1")
+                    .setPrice(BigDecimal.valueOf(111L))
+                    .setId(1)
+    ));
+
+    Product product = jdbi.withExtension(ProductsDao.class,
+            it -> it.getAllByName("todelete1")).findFirst().orElse(new Product());
+
+    Boolean deleted = jdbi.withExtension(ProductsDao.class,
+            it -> it.deleteProduct(product.getId()));
+
+    assertThat(deleted).isTrue();
+  }
+
 }
