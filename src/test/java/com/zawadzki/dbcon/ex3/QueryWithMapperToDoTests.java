@@ -14,7 +14,7 @@ public class QueryWithMapperToDoTests {
 
   /**
    * write some tests using constructor and row mappers you can find examples in QueryWithMapperTests.class
-   *
+   * <p>
    * write some tests:
    * 1. Select all products using row mapper
    * 2. Select all products using constructor mapper
@@ -47,11 +47,14 @@ public class QueryWithMapperToDoTests {
 
   @Test
   void selectProductWithIdUsingRowMapper() {
-    List<Product> clients = jdbi.withHandle(handle ->
-            handle.createQuery("select * from products where id=:id")
-                    .bind("id", 2)
-                    .map(new ProductMapper())
-                    .list());
+    List<Product> clients = jdbi.withHandle(
+            handle ->
+                    handle.createQuery("select * from products where id=:id")
+                            .bind("id", 2)
+                            .map(new ProductMapper())
+
+                            .list()
+    );
 
     assertThat(clients).hasSize(1);
   }
@@ -60,7 +63,10 @@ public class QueryWithMapperToDoTests {
   void updateProductName() {
     int updatedRows = jdbi.withHandle(handle ->
             handle.createUpdate("update products set name=:name where id=:id")
-                    .bindBean(new Product().setId(1).setName("something_new"))
+                    .bindBean(new Product()
+                            .setId(1)
+                            .setName("something_new")
+                    )
                     .execute());
     assertThat(updatedRows).isEqualTo(1);
   }
@@ -69,7 +75,11 @@ public class QueryWithMapperToDoTests {
   void insertClient() {
     int updatedRows = jdbi.withHandle(handle ->
             handle.createUpdate("INSERT INTO products(name, category, price) VALUES (:name, :category, :price)")
-                    .bindBean(new Product().setName("newProduct1").setCategory("cat1").setPrice(BigDecimal.valueOf(200L)))
+                    .bindBean(new Product()
+                            .setName("newProduct1")
+                            .setCategory("cat1")
+                            .setPrice(BigDecimal.valueOf(200L))
+                    )
                     .execute());
     assertThat(updatedRows).isEqualTo(1);
   }
