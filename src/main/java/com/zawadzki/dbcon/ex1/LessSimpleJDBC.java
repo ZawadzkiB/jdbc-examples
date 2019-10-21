@@ -14,7 +14,7 @@ public class LessSimpleJDBC {
 
   public static void main(String[] args) {
     Connection conn = null;
-    Statement stmt = null;
+    PreparedStatement stmt = null;
 
     BigDecimal minimalPrice = BigDecimal.valueOf(200L);
 
@@ -35,8 +35,9 @@ public class LessSimpleJDBC {
       /**
        * create statement and run SQL query
        */
-      stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery("select * from products where price > " + minimalPrice.toString());
+      stmt = conn.prepareStatement("select * from products where price > ?");
+      stmt.setBigDecimal(1, minimalPrice);
+      ResultSet rs = stmt.executeQuery();
 
       /**
        * print result set to console

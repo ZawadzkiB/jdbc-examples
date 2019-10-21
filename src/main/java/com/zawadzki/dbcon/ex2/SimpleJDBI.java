@@ -20,7 +20,8 @@ public class SimpleJDBI {
      * use jdbi with handler to create query and map results from that query
      */
     List<Map<String,Object>> products = jdbi.withHandle(handle ->
-            handle.createQuery("select * from products")
+            handle.createQuery("select * from products where price > :price")
+                    .bind("price", 200)
                     .mapToMap()
                     .list());
 

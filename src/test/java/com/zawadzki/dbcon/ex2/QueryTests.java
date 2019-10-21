@@ -29,7 +29,11 @@ class QueryTests {
    */
   @Test
   void selectAllProducts() {
-
+    List<Map<String,Object>> products = jdbi.withHandle(handle ->
+            handle.createQuery("select * from products")
+                    .mapToMap()
+                    .list());
+    assertThat(products.size()).isEqualTo(7);
   }
 
 
@@ -40,7 +44,12 @@ class QueryTests {
    */
   @Test
   void selectNameOfProductWithHighestPrice() {
+    String productName = jdbi.withHandle(handle ->
+            handle.createQuery("select name from products order by price desc limit 1")
+                    .mapTo(String.class)
+                    .first());
 
+    assertThat(productName).isEqualTo("bike");
   }
 
   /**
